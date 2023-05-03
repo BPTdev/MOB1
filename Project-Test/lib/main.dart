@@ -52,27 +52,47 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Row(children: [
-      Container(
-          margin: EdgeInsets.all(0.0),
-          padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.red,
-          )),
-      Container(
-          margin: EdgeInsets.all(0.0),
-          padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.green,
-          )),
-      Container(
-        margin: EdgeInsets.all(0.0),
-        padding: EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          color: Colors.blue,
+      body: SafeArea(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              color: Colors.red,
+              width: 100.0,
+            ),
+            Container(
+                width: MediaQuery.of(context).size.width - 200,
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        color: Colors.yellow,
+                        child: Icon(Icons.mood, color: Colors.black, size: 100),
+                      ),
+                      SizedBox(height: 40),
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.teal,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child:
+                            Icon(Icons.ac_unit, color: Colors.black, size: 100),
+                      ),
+                    ],
+                  ),
+                )),
+            Container(
+              color: Colors.blue,
+              width: 100.0,
+            ),
+          ],
         ),
       ),
-    ])));
+    );
   }
 }
