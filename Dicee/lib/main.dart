@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        useMaterial3: true,
+        primarySwatch: Colors.red,
       ),
       home: const MyHomePage(),
     );
@@ -28,6 +31,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  void randomImage(){
+    setState(() {
+      Random random = Random();
+      int image1 = random.nextInt(6)+1;
+      image1Path = 'assets/images/dice$image1.png';
+      int image2 = random.nextInt(6)+1;
+      image2Path = 'assets/images/dice$image2.png';
+    });
+
+  }
+
+  String image1Path = 'assets/images/dice2.png';
+  String image2Path = 'assets/images/dice4.png';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,13 +68,25 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                ElevatedButton(
+                  onPressed: ()  {
+                    randomImage();
+                  },
+                  child:
                 Image(
-                  image: AssetImage('assets/images/dice1.png'),
+                  image: AssetImage(image1Path),
                   height: MediaQuery.of(context).size.width * 0.4,
                 ),
+                ),
+                ElevatedButton(
+                  onPressed: ()  {
+                    randomImage();
+                  },
+                  child:
                 Image(
-                  image: AssetImage('assets/images/dice1.png'),
+                  image: AssetImage(image2Path),
                   height: MediaQuery.of(context).size.width * 0.4,
+                ),
                 ),
               ],
             ),
