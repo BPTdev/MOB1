@@ -56,12 +56,9 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  child: SizedBox(
+                SizedBox(
                     height: 20.0,
                   ),
-                ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Card(
