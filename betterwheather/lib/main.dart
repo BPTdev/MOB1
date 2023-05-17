@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 10.0,),
             Text(day, style: TextStyle(fontSize: fontSizes[1], color: textColors[0]),),
             SizedBox(height: 50.0,),
+            Image(image: image)
             Icon(Icons.wb_sunny_outlined, color: textColors[0], size: iconSizes[1],),
             SizedBox(height: 50.0,),
             Text('$temperature°', style: TextStyle(fontSize: fontSizes[2], color: textColors[0]),),
