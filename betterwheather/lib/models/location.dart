@@ -1,12 +1,10 @@
 import 'package:geolocator/geolocator.dart';
-List<double> location = [];
-Future<void> updateLocation() async {
+
+
+Future<List<double>> updateLocation() async {
   Position position = await getCurrentLocation();
   print("processing location ${position.latitude} ${position.longitude}");
-
-  location.add(position.latitude);
-  location.add(position.longitude);
-
+  return [position.latitude, position.longitude];
 }
 
 Future<Position> getCurrentLocation() async {

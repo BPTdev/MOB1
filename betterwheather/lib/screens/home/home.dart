@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/models/location.dart';
 import '/constants/design.dart';
+import '/models/weather.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -18,6 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var day = 'Monday';
   var temperature = 20;
   var weather = 'SUNNY';
+  List<double> location = [];
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         leading: IconButton(
-          icon: Icon(Icons.search, color: kTextColors[0], size: kIconSizes[0],),
+          icon: Icon(Icons.delivery_dining, color: kTextColors[0], size: kIconSizes[0],),
           onPressed: () {
-
+            WeatherComponent().fetchWeather(location[0], location[1]);
           },
         ),
         actions: [
@@ -35,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(
               Icons.my_location, color: kTextColors[0], size: kIconSizes[0],),
             onPressed: () {
-              updateLocation();
+              updateLocation().then((value) => location = value);
             },
           ),
         ],
