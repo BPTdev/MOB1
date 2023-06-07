@@ -11,14 +11,24 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
 class _MyHomePageState extends State<MyHomePage> {
+  
+  void iconImage(String icon) {
+    setState(() {
+      icon = icon.substring(0,2);
+      weatherImage = 'assets/images/${icon}.png';
+    });
+  }
 
 //Design values
   var city = 'London';
   var day = 'Monday';
-  var temperature = 20;
+  double temperature = 20;
+  double temperatureMin = 15;
+  double temperatureMax = 25;
+  var icon = '01';
   var weather = 'SUNNY';
+  var weatherImage = 'assets/images/01.png';
   List<double> location = [];
 
   @override
@@ -29,7 +39,18 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: IconButton(
           icon: Icon(Icons.delivery_dining, color: kTextColors[0], size: kIconSizes[0],),
           onPressed: () {
-            WeatherComponent().fetchWeather(location[0], location[1]);
+            WeatherComponent().fetchWeather(location[0], location[1]).then((value) {
+              setState(() {
+                city = value['city'];
+                temperature = value['temp'];
+                temperatureMin = value['temp_min'];
+                temperatureMax = value['temp_max'];
+                icon = value['icon'];
+                weather = value['main'];
+              });
+              iconImage(icon);
+            });
+
           },
         ),
         actions: [
@@ -53,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(day,
               style: TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),),
             SizedBox(height: 50.0,),
-            //Image(image: image),
+            Image(image: AssetImage(weatherImage), width: kIconSizes[1], height: kIconSizes[1],),
             Icon(Icons.wb_sunny_outlined, color: kTextColors[0],
               size: kIconSizes[1],),
             SizedBox(height: 50.0,),
@@ -66,13 +87,13 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.thermostat, color: kTextColors[1], size: kIconSizes[0],),
-                Text('19°', style: TextStyle(
+                  Icons.arrow_downward, color: kTextColors[1], size: kIconSizes[0],),
+                Text('$temperatureMin°', style: TextStyle(
                     fontSize: kFontSizes[1], color: kTextColors[1]),),
                 SizedBox(width: 10.0,),
-                Icon(Icons.thermostat_auto, color: kTextColors[1],
+                Icon(Icons.arrow_upward, color: kTextColors[1],
                   size: kIconSizes[0],),
-                Text('20°', style: TextStyle(
+                Text('$temperatureMax°', style: TextStyle(
                     fontSize: kFontSizes[1], color: kTextColors[1]),),
               ],
             ),

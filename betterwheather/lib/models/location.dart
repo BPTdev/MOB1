@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 
 Future<List<double>> updateLocation() async {
   Position position = await getCurrentLocation();
-  print("processing location ${position.latitude} ${position.longitude}");
+  print("Lat: ${position.latitude} Lon: ${position.longitude}");
   return [position.latitude, position.longitude];
 }
 
@@ -38,8 +38,8 @@ Future<Position> getCurrentLocation() async {
     return Future.error(
         'Location permissions are permanently denied, we cannot request permissions.');
   }
-  print('Location permissions are granted');
 
+  print('Getting your location');
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
   return await Geolocator.getCurrentPosition();
