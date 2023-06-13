@@ -13,6 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool loading = true;
   var city = '';
   var day = '';
   double temperature = 0;
@@ -31,6 +32,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> fetchWeatherData() async {
     try {
+      setState(() {
+        loading = true;
+      });
       location = await updateLocation();
       final value = await WeatherComponent().fetchWeather(location[0], location[1]);
       setState(() {
@@ -44,6 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
     } catch (e) {
       // Handle any error that occurs during weather fetching or location updating
       throw Exception('Error fetching weather data: $e');
+    }finally {
+      setState(() {
+        loading = false;
+      });
     }
   }
 
