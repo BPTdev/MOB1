@@ -182,13 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-      ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          fetchWeatherData(WeatherComponent().fetchWeatherLatLon(location[0], location[1]));
-        },
-        tooltip: 'Refresh',
-        child: Icon(Icons.refresh),
+        ],
       ),
     );
   }

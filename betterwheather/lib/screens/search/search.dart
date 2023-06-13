@@ -20,32 +20,47 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Page'),
+        backgroundColor: Colors.black,
       ),
+      backgroundColor: Colors.black,
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'Enter your search',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton.icon(
-              onPressed: () {
-                String searchValue = _searchController.text;
-                // Handle submit button press with the searchValue
-                Navigator.pop(context, searchValue);
-              },
-              icon: Icon(Icons.search),
-              label: Text('Submit'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.orange,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search, color: Colors.black),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    fillColor: Colors.white,
+                    hintText: 'Enter your search',
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                FractionallySizedBox(
+                  widthFactor: 1.0,
+                  child: Container(
+                    height: 40.0, // Set the desired height here
+                    child: ElevatedButton(
+                      onPressed: () {
+                        String searchValue = _searchController.text;
+                        Navigator.pop(context, searchValue);
+                      },
+                      child: Text('Search', style: TextStyle(fontSize: 20.0)),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                      ),
+                    ),
+                  ),
+
+                ),
+              ],
             ),
           ],
         ),
