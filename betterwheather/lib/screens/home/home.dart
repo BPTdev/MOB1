@@ -29,119 +29,167 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    fetchWeatherData();
+    updateLocation().then((value) {
+      location = value; // Update the location list with the fetched values
+      fetchWeatherData(WeatherComponent().fetchWeatherLatLon(location[0], location[1]));
+    });
   }
 
-  Future<void> fetchWeatherData() async {
+  Future<void> fetchWeatherData(Future<Map<String, dynamic>> value) async {
     try {
       setState(() {
         loading = true;
       });
       location = await updateLocation();
+      final weatherData = await value;
 
-      final value = await WeatherComponent().fetchWeather(location[0], location[1]);
       setState(() {
-        city = value['city'];
-        temperature = value['temp'];
-        temperatureMin = value['temp_min'];
-        temperatureMax = value['temp_max'];
-        weather = value['main'];
+        city = weatherData['city'];
+        temperature = weatherData['temp'];
+        temperatureMin = weatherData['temp_min'];
+        temperatureMax = weatherData['temp_max'];
+        weather = weatherData['main'];
       });
       iconImage(weather);
     } catch (e) {
       // Handle any error that occurs during weather fetching or location updating
       throw Exception('Error fetching weather data: $e');
-    }finally {
+    } finally {
       setState(() {
         loading = false;
       });
     }
   }
 
+
   void iconImage(String icon) {
     setState(() {
       weatherImage = 'assets/images/$icon.png';
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         leading: IconButton(
-          icon: Icon(Icons.delivery_dining, color: kTextColors[0], size: kIconSizes[0],),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
-
+          icon: Icon(
+            Icons.search,
+            color: kTextColors[0],
+            size: kIconSizes[0],
+          ),
+          onPressed: () async {
+            final result = await Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SearchPage()));
+            final searchValue = await result;
+            fetchWeatherData(WeatherComponent().fetchWeatherPlace(searchValue));
           },
         ),
         actions: [
           IconButton(
             icon: Icon(
-              Icons.my_location, color: kTextColors[0], size: kIconSizes[0],),
+              Icons.my_location,
+              color: kTextColors[0],
+              size: kIconSizes[0],
+            ),
             onPressed: () {
-              fetchWeatherData();
+              fetchWeatherData(WeatherComponent().fetchWeatherLatLon(location[0], location[1]));
             },
           ),
         ],
       ),
       backgroundColor: kBackgroundColor,
-      body: Stack(
-          children:[
-            Center(
-              child: Column(
+      body: Stack(children: [
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                city,
+                style:
+                    TextStyle(fontSize: kFontSizes[0], color: kTextColors[0]),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                day,
+                style:
+                    TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Image(
+                image: AssetImage(weatherImage),
+                width: kIconSizes[1],
+                height: kIconSizes[1],
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Text(
+                '$temperature°',
+                style:
+                    TextStyle(fontSize: kFontSizes[2], color: kTextColors[0]),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Text(
+                weather,
+                style:
+                    TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(city,
-                    style: TextStyle(fontSize: kFontSizes[0], color: kTextColors[0]),),
-                  SizedBox(height: 10.0,),
-                  Text(day,
-                    style: TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),),
-                  SizedBox(height: 50.0,),
-                  Image(image: AssetImage(weatherImage), width: kIconSizes[1], height: kIconSizes[1],),
-                  Icon(Icons.wb_sunny_outlined, color: kTextColors[0],
-                    size: kIconSizes[1],),
-                  SizedBox(height: 50.0,),
-                  Text('$temperature°',
-                    style: TextStyle(fontSize: kFontSizes[2], color: kTextColors[0]),),
-                  SizedBox(height: 20.0,),
-                  Text(weather,
-                    style: TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.arrow_downward, color: kTextColors[1], size: kIconSizes[0],),
-                      Text('$temperatureMin°', style: TextStyle(
-                          fontSize: kFontSizes[1], color: kTextColors[1]),),
-                      SizedBox(width: 10.0,),
-                      Icon(Icons.arrow_upward, color: kTextColors[1],
-                        size: kIconSizes[0],),
-                      Text('$temperatureMax°', style: TextStyle(
-                          fontSize: kFontSizes[1], color: kTextColors[1]),),
-                    ],
+                  Icon(
+                    Icons.arrow_downward,
+                    color: kTextColors[1],
+                    size: kIconSizes[0],
+                  ),
+                  Text(
+                    '$temperatureMin°',
+                    style: TextStyle(
+                        fontSize: kFontSizes[1], color: kTextColors[1]),
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Icon(
+                    Icons.arrow_upward,
+                    color: kTextColors[1],
+                    size: kIconSizes[0],
+                  ),
+                  Text(
+                    '$temperatureMax°',
+                    style: TextStyle(
+                        fontSize: kFontSizes[1], color: kTextColors[1]),
                   ),
                 ],
               ),
-            ),
-            if (loading)
-              Container(
-                color: Colors.black.withOpacity(1),
-                child: Center(
-                  child: SpinKitSpinningLines(
-                    color: Colors.white, // Customize the color as needed
-                  ),
-                ),
+            ],
+          ),
+        ),
+        if (loading)
+          Container(
+            color: Colors.black.withOpacity(1),
+            child: Center(
+              child: SpinKitSpinningCircle(
+                color: Colors.purpleAccent, // Customize the color as needed
               ),
-          ]
-      ),
+            ),
+          ),
+      ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          fetchWeatherData();
+          fetchWeatherData(WeatherComponent().fetchWeatherLatLon(location[0], location[1]));
         },
         tooltip: 'Refresh',
         child: Icon(Icons.refresh),
-    ),
+      ),
     );
   }
 }

@@ -11,7 +11,8 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
-    _searchController.dispose(); // Dispose the controller when the widget is disposed
+    _searchController
+        .dispose(); // Dispose the controller when the widget is disposed
     super.dispose();
   }
 
@@ -38,9 +39,7 @@ class _SearchPageState extends State<SearchPage> {
               onPressed: () {
                 String searchValue = _searchController.text;
                 // Handle submit button press with the searchValue
-                getLocationByName(searchValue).then((value) {
-
-                });
+                Navigator.pop(context, searchValue);
               },
               icon: Icon(Icons.search),
               label: Text('Submit'),
