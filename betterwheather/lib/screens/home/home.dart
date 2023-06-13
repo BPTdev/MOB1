@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '/models/location.dart';
 import '/constants/design.dart';
 import '/models/weather.dart';
@@ -93,42 +94,62 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       backgroundColor: kBackgroundColor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(city,
-              style: TextStyle(fontSize: kFontSizes[0], color: kTextColors[0]),),
-            SizedBox(height: 10.0,),
-            Text(day,
-              style: TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),),
-            SizedBox(height: 50.0,),
-            Image(image: AssetImage(weatherImage), width: kIconSizes[1], height: kIconSizes[1],),
-            Icon(Icons.wb_sunny_outlined, color: kTextColors[0],
-              size: kIconSizes[1],),
-            SizedBox(height: 50.0,),
-            Text('$temperature°',
-              style: TextStyle(fontSize: kFontSizes[2], color: kTextColors[0]),),
-            SizedBox(height: 20.0,),
-            Text(weather,
-              style: TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.arrow_downward, color: kTextColors[1], size: kIconSizes[0],),
-                Text('$temperatureMin°', style: TextStyle(
-                    fontSize: kFontSizes[1], color: kTextColors[1]),),
-                SizedBox(width: 10.0,),
-                Icon(Icons.arrow_upward, color: kTextColors[1],
-                  size: kIconSizes[0],),
-                Text('$temperatureMax°', style: TextStyle(
-                    fontSize: kFontSizes[1], color: kTextColors[1]),),
-              ],
+      body: Stack(
+          children:[
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(city,
+                    style: TextStyle(fontSize: kFontSizes[0], color: kTextColors[0]),),
+                  SizedBox(height: 10.0,),
+                  Text(day,
+                    style: TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),),
+                  SizedBox(height: 50.0,),
+                  Image(image: AssetImage(weatherImage), width: kIconSizes[1], height: kIconSizes[1],),
+                  Icon(Icons.wb_sunny_outlined, color: kTextColors[0],
+                    size: kIconSizes[1],),
+                  SizedBox(height: 50.0,),
+                  Text('$temperature°',
+                    style: TextStyle(fontSize: kFontSizes[2], color: kTextColors[0]),),
+                  SizedBox(height: 20.0,),
+                  Text(weather,
+                    style: TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.arrow_downward, color: kTextColors[1], size: kIconSizes[0],),
+                      Text('$temperatureMin°', style: TextStyle(
+                          fontSize: kFontSizes[1], color: kTextColors[1]),),
+                      SizedBox(width: 10.0,),
+                      Icon(Icons.arrow_upward, color: kTextColors[1],
+                        size: kIconSizes[0],),
+                      Text('$temperatureMax°', style: TextStyle(
+                          fontSize: kFontSizes[1], color: kTextColors[1]),),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+            if (loading)
+              Container(
+                color: Colors.black.withOpacity(1),
+                child: Center(
+                  child: SpinKitDoubleBounce(
+                    color: Colors.white, // Customize the color as needed
+                  ),
+                ),
+              ),
+          ]
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          fetchWeatherData();
+        },
+        tooltip: 'Refresh',
+        child: Icon(Icons.refresh),
+    ),
     );
   }
 
