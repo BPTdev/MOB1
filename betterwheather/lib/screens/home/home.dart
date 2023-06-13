@@ -4,33 +4,54 @@ import '/constants/design.dart';
 import '/models/weather.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-class _MyHomePageState extends State<MyHomePage> {
-  
-  void iconImage(String icon) {
-    setState(() {
-      icon = icon.substring(0,2);
-      weatherImage = 'assets/images/${icon}.png';
-    });
-  }
 
-//Design values
-  var city = 'London';
-  var day = 'Monday';
-  double temperature = 20;
-  double temperatureMin = 15;
-  double temperatureMax = 25;
-  var icon = '01';
-  var weather = 'SUNNY';
-  var weatherImage = 'assets/images/01.png';
+class _MyHomePageState extends State<MyHomePage> {
+  var city = '';
+  var day = '';
+  double temperature = 0;
+  double temperatureMin = 0;
+  double temperatureMax = 0;
+  var icon = '';
+  var weather = '';
+  var weatherImage = '';
   List<double> location = [];
 
+  @override
+  void initState() {
+    super.initState();
+    fetchWeatherData();
+  }
+
+  Future<void> fetchWeatherData() async {
+    try {
+      location = await updateLocation();
+      final value = await WeatherComponent().fetchWeather(location[0], location[1]);
+      setState(() {
+        city = value['city'];
+        temperature = value['temp'];
+        temperatureMin = value['temp_min'];
+        temperatureMax = value['temp_max'];
+        weather = value['main'];
+      });
+      iconImage(weather);
+    } catch (e) {
+      // Handle any error that occurs during weather fetching or location updating
+      throw Exception('Error fetching weather data: $e');
+    }
+  }
+
+  void iconImage(String icon) {
+    setState(() {
+      weatherImage = 'assets/images/$icon.png';
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
