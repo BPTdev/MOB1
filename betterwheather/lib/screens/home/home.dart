@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../search/search.dart';
 import '/models/location.dart';
 import '/constants/design.dart';
 import '/models/weather.dart';
@@ -69,17 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: IconButton(
           icon: Icon(Icons.delivery_dining, color: kTextColors[0], size: kIconSizes[0],),
           onPressed: () {
-            WeatherComponent().fetchWeather(location[0], location[1]).then((value) {
-              setState(() {
-                city = value['city'];
-                temperature = value['temp'];
-                temperatureMin = value['temp_min'];
-                temperatureMax = value['temp_max'];
-                icon = value['icon'];
-                weather = value['main'];
-              });
-              iconImage(icon);
-            });
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
 
           },
         ),
@@ -88,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(
               Icons.my_location, color: kTextColors[0], size: kIconSizes[0],),
             onPressed: () {
-              updateLocation().then((value) => location = value);
+              fetchWeatherData();
             },
           ),
         ],
@@ -136,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 color: Colors.black.withOpacity(1),
                 child: Center(
-                  child: SpinKitCircle(
+                  child: SpinKitSpinningLines(
                     color: Colors.white, // Customize the color as needed
                   ),
                 ),
@@ -152,6 +143,4 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
     );
   }
-
-
 }
