@@ -38,6 +38,7 @@ dependencies:
   geolocator: ^9.0.2
   http: ^1.0.0
   flutter_spinkit: ^5.2.0
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:

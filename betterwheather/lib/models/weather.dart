@@ -38,6 +38,8 @@ class WeatherComponent {
       return {}; // Return an empty Map in case of error
     }
   }
+
 }
+
 
 

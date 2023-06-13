@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         loading = true;
       });
       location = await updateLocation();
+
       final value = await WeatherComponent().fetchWeather(location[0], location[1]);
       setState(() {
         city = value['city'];

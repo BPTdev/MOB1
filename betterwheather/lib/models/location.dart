@@ -1,12 +1,25 @@
 import 'package:geolocator/geolocator.dart';
-
+import 'package:geocoding/geocoding.dart';
 
 Future<List<double>> updateLocation() async {
   Position position = await getCurrentLocation();
   print("Lat: ${position.latitude} Lon: ${position.longitude}");
   return [position.latitude, position.longitude];
 }
-
+Future<List<double>> getLocationByName(String placeName) async {
+  try {
+    List<Location> locations = await locationFromAddress(placeName);
+    if (locations.isNotEmpty) {
+      Location location = locations.first;
+      print("Place: ${location.latitude}, ${location.longitude}");
+      return [location.latitude, location.longitude];
+    } else {
+      throw Exception('No location found for the given place name.');
+    }
+  } catch (e) {
+    throw Exception('Error retrieving location: $e');
+  }
+}
 Future<Position> getCurrentLocation() async {
   bool serviceEnabled;
   LocationPermission permission;
