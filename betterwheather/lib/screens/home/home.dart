@@ -71,8 +71,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: kBackgroundColor,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.search,
@@ -99,90 +101,97 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      backgroundColor: kBackgroundColor,
-      body: Stack(children: [
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                city,
-                style:
-                    TextStyle(fontSize: kFontSizes[0], color: kTextColors[0]),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                day,
-                style:
-                    TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),
-              ),
-              SizedBox(
-                height: 50.0,
-              ),
-              Image(
-                image: AssetImage(weatherImage),
-                width: kIconSizes[1],
-                height: kIconSizes[1],
-              ),
-              SizedBox(
-                height: 50.0,
-              ),
-              Text(
-                '$temperature°',
-                style:
-                    TextStyle(fontSize: kFontSizes[2], color: kTextColors[0]),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                weather,
-                style:
-                    TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.arrow_downward,
-                    color: kTextColors[1],
-                    size: kIconSizes[0],
-                  ),
-                  Text(
-                    '$temperatureMin°',
-                    style: TextStyle(
-                        fontSize: kFontSizes[1], color: kTextColors[1]),
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Icon(
-                    Icons.arrow_upward,
-                    color: kTextColors[1],
-                    size: kIconSizes[0],
-                  ),
-                  Text(
-                    '$temperatureMax°',
-                    style: TextStyle(
-                        fontSize: kFontSizes[1], color: kTextColors[1]),
-                  ),
-                ],
-              ),
-            ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/clear_sky.gif'), // Specify the path to your GIF image
+            fit: BoxFit.cover,
           ),
         ),
-        if (loading)
-          Container(
-            color: Colors.black.withOpacity(1),
-            child: Center(
-              child: SpinKitSpinningCircle(
-                color: Colors.purpleAccent, // Customize the color as needed
-              ),
+        child: Stack(children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  city,
+                  style:
+                  TextStyle(fontSize: kFontSizes[0], color: kTextColors[0]),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  day,
+                  style:
+                  TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Image(
+                  image: AssetImage(weatherImage),
+                  width: kIconSizes[1],
+                  height: kIconSizes[1],
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Text(
+                  '$temperature°',
+                  style:
+                  TextStyle(fontSize: kFontSizes[2], color: kTextColors[0]),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  weather,
+                  style:
+                  TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.arrow_downward,
+                      color: kTextColors[1],
+                      size: kIconSizes[0],
+                    ),
+                    Text(
+                      '$temperatureMin°',
+                      style: TextStyle(
+                          fontSize: kFontSizes[1], color: kTextColors[1]),
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Icon(
+                      Icons.arrow_upward,
+                      color: kTextColors[1],
+                      size: kIconSizes[0],
+                    ),
+                    Text(
+                      '$temperatureMax°',
+                      style: TextStyle(
+                          fontSize: kFontSizes[1], color: kTextColors[1]),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
+          if (loading)
+            Container(
+              color: Colors.black.withOpacity(1),
+              child: Center(
+                child: SpinKitSpinningCircle(
+                  color: Colors.purpleAccent, // Customize the color as needed
+                ),
+              ),
+            ),
         ],
+        ),
       ),
     );
   }
