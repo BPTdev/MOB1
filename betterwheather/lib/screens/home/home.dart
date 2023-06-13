@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 color: Colors.black.withOpacity(1),
                 child: Center(
-                  child: SpinKitDoubleBounce(
+                  child: SpinKitCircle(
                     color: Colors.white, // Customize the color as needed
                   ),
                 ),
