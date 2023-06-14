@@ -227,9 +227,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('6 days forecast',
+                      child: Text('5 days forecast',
                           style:
-                              TextStyle(fontSize: 20.0, color: kColors[1])),
+                              TextStyle(fontSize: kFontSizes[3], color: kColors[1])),
                     ),
                   ),
                 ),

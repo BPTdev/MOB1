@@ -53,7 +53,7 @@ class _SearchPageState extends State<SearchPage> {
                         String searchValue = _searchController.text;
                         Navigator.pop(context, searchValue);
                       },
-                      child: Text('Search', style: TextStyle(fontSize: 20.0)),
+                      child: Text('Search', style: TextStyle(fontSize: kFontSizes[3])),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.orange,
                       ),
