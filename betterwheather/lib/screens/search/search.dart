@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '/models/location.dart';
+
+import '../../constants/design.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -20,9 +21,9 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: kColors[1],
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: kColors[1],
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -33,12 +34,12 @@ class _SearchPageState extends State<SearchPage> {
                 TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: Colors.black),
+                    prefixIcon: Icon(Icons.search, color: kColors[1]),
                     filled: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    fillColor: Colors.white,
+                    fillColor: kColors[0],
                     hintText: 'Enter your search',
                   ),
                 ),
@@ -58,7 +59,6 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                   ),
-
                 ),
               ],
             ),
