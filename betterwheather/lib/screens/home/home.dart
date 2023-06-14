@@ -15,15 +15,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool loading = true;
-  var city;
-  var day;
+  var city= '';
+  var day = '';
   double temperature = 0;
   double temperatureMin = 0;
   double temperatureMax = 0;
-  var icon;
-  var weather;
-  var weatherImage;
-  var backgroundImage;
+  var icon= '';
+  var weather = '';
+  var weatherImage = 'assets/images/Clear.png';
+  var backgroundImage = 'assets/images/background/Clear.gif';
   List<double> location = [];
 
   @override
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text(
                   city,
                   style:
-                  TextStyle(fontSize: kFontSizes[0], color: kTextColors[0]),
+                  TextStyle(fontSize: kFontSizes[0], color: kTextColors[0],shadows: kTextShadows),
                 ),
                 SizedBox(
                   height: 10.0,
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text(
                   day,
                   style:
-                  TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),
+                  TextStyle(fontSize: kFontSizes[1], color: kTextColors[0],shadows: kTextShadows),
                 ),
                 SizedBox(
                   height: 50.0,
@@ -141,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text(
                   '$temperature°',
                   style:
-                  TextStyle(fontSize: kFontSizes[2], color: kTextColors[0]),
+                  TextStyle(fontSize: kFontSizes[2], color: kTextColors[0],shadows: kTextShadows),
                 ),
                 SizedBox(
                   height: 20.0,
@@ -151,31 +151,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   style:
                   TextStyle(fontSize: kFontSizes[1], color: kTextColors[0]),
                 ),
+                SizedBox(
+                  height: 20.0,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.arrow_downward,
-                      color: kTextColors[1],
-                      size: kIconSizes[0],
+                    Image(image: AssetImage('assets/images/thermometer_low.png'), width: kIconSizes[0],color: kTextColors[1],
                     ),
                     Text(
                       '$temperatureMin°',
                       style: TextStyle(
-                          fontSize: kFontSizes[1], color: kTextColors[1]),
+                          fontSize: kFontSizes[1], color: kTextColors[1],shadows: kTextShadows),
                     ),
                     SizedBox(
                       width: 10.0,
                     ),
-                    Icon(
-                      Icons.arrow_upward,
-                      color: kTextColors[1],
-                      size: kIconSizes[0],
+                    Image(image: AssetImage('assets/images/thermometer_low.png'), width: kIconSizes[0],color: kTextColors[1],
                     ),
-                    Text(
+                      Text(
                       '$temperatureMax°',
                       style: TextStyle(
-                          fontSize: kFontSizes[1], color: kTextColors[1]),
+                          fontSize: kFontSizes[1], color: kTextColors[1],shadows: kTextShadows),
                     ),
                   ],
                 ),
