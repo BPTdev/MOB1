@@ -6,9 +6,8 @@ import '/constants/design.dart';
 import '/models/weather.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -16,15 +15,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool loading = true;
-  var city = '';
-  var day = '';
+  var city;
+  var day;
   double temperature = 0;
   double temperatureMin = 0;
   double temperatureMax = 0;
-  var icon = '';
-  var weather = '';
-  var weatherImage = '';
-  var backgroundImage = '';
+  var icon;
+  var weather;
+  var weatherImage;
+  var backgroundImage;
   List<double> location = [];
 
   @override
