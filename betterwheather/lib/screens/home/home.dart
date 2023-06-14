@@ -24,6 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var icon = '';
   var weather = '';
   var weatherImage = '';
+  var backgroundImage = '';
   List<double> location = [];
 
   @override
@@ -65,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void iconImage(String icon) {
     setState(() {
       weatherImage = 'assets/images/$icon.png';
+      backgroundImage = 'assets/images/background/$icon.gif';
     });
   }
 
@@ -104,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/clear_sky.gif'), // Specify the path to your GIF image
+            image: AssetImage('$backgroundImage'), // Specify the path to your GIF image
             fit: BoxFit.cover,
           ),
         ),
